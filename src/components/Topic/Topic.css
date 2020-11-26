@@ -1,0 +1,19 @@
+.mycard {
+    width: 240px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5%;
+    background-color:#eef8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myText {
+    margin-left: 20px;
+    width: 70px;
+    text-align: center;
+    color: #6b767f;
+}
+.myimg{
+
+}
