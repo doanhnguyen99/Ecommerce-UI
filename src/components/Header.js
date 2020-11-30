@@ -1,12 +1,14 @@
 import React from 'react';
-import { Row, Col, Input  } from 'antd';
+import { Row, Col, Input, Layout, Menu, Breadcrumb } from 'antd';
 import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined  } from '@ant-design/icons';
 import HomeIMG from './../image/home.png';
 
 const style = { };
 
 const { Search } = Input;
-function Header() {
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+function MyHeader() {
     
     const onSearch = value => console.log(value);
   return (
@@ -50,9 +52,29 @@ function Header() {
         </Col>
 
     </Row>
-    
+    <Header className="header" >
+        <Row >
+            <Col offset={1} span={22} style={{backgroundColor: "white"}}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} >
+                        <Menu.Item key="1">Home</Menu.Item>
+                        <Menu.Item key="2">Shoping</Menu.Item>
+                        <Menu.Item key="3">nav 3</Menu.Item>
+                    </Menu>
+            </Col>
+        </Row>
+      
+    </Header>
+    <Row style={{backgroundColor: "#f0f2f5"}}>
+        <Col offset={2}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+                <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+        </Col>
+    </Row>
     </div>
   );
 }
 
-export default Header;
+export default MyHeader;
