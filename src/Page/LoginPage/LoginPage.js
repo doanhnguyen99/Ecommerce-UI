@@ -1,6 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
+
+import axios from "axios";
 
 const layout = {
   labelCol: { span: 5 },
@@ -12,10 +14,21 @@ const tailLayout = {
 
 const LoginPage = () => {
   const onFinish = values => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/users/sign_in',
+      data: {
+        "api_user": values
+      }
+    }). then((response)=>{
+        console.log(response.data)
+
+    });
     console.log('Success:', values);
   };
 
   const onFinishFailed = errorInfo => {
+
     console.log('Failed:', errorInfo);
   };
 
@@ -30,9 +43,13 @@ const LoginPage = () => {
             onFinishFailed={onFinishFailed}
             >
             <Form.Item
-                label="Username"
-                name="username"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                label="Email"
+                name="email"
+                rules={[{
+                  required: true,
+                  type: "email",
+                  message: "The input is not valid E-mail!"
+                }]}
             >
                 <Input />
             </Form.Item>

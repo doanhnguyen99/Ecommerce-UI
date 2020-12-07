@@ -1,5 +1,6 @@
 import { Menu } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -8,11 +9,29 @@ function handleClick(e) {
   console.log('click', e);
 }
 const MyMenuItem = () =>{
+  const [listCategory, setListCategory] = useState([]);
+  useEffect(()=>{
+    axios({
+      method: 'get',
+      url: 'http://localhost:3000/api/categorys',
+      
+      // headers: { Authorization: AuthStr }
+    }). then((response) => {
+     
+        setListCategory(response.data);
+    });
+  },[]);
 
+
+  console.log(listCategory);
 return(
     <Menu onClick={handleClick} style={{  height: "100%"
      }} mode="vertical">
-      <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
+       {
+         listCategory.map(category => <SubMenu key={category.id.toString()}  title={category.name}>
+          </SubMenu>  )
+       }
+      {/* <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
         <Menu.ItemGroup title="Item 1">
           <Menu.Item key="1">Option 1</Menu.Item>
           <Menu.Item key="2">Option 2</Menu.Item>
@@ -35,7 +54,7 @@ return(
         <Menu.Item key="10">Option 10</Menu.Item>
         <Menu.Item key="11">Option 11</Menu.Item>
         <Menu.Item key="12">Option 12</Menu.Item>
-      </SubMenu>
+      </SubMenu> */}
     </Menu>
   );
 }

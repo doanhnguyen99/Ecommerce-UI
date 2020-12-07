@@ -2,6 +2,12 @@ import React from 'react';
 import { Row, Col, Input, Layout, Menu, Breadcrumb } from 'antd';
 import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined  } from '@ant-design/icons';
 import HomeIMG from './../image/home.png';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 const style = { };
 
@@ -21,9 +27,9 @@ function MyHeader() {
                 <MailOutlined style={{marginLeft:"10px"}}/> nguyenvantuhym@gmail.com
                 </Col>
                 <Col span={3} offset={8}>
-                    <UserOutlined /> Register
+                    <Link to="/register"><UserOutlined /> Register</Link>
                     <span style={{margin:"10px", fontSize: 15}}>or</span>
-                    <UserOutlined /> Sign In
+                    <Link to="/login"><UserOutlined /> Sign In</Link>
                 </Col>
             </Row>
         </Col>
@@ -46,7 +52,9 @@ function MyHeader() {
             />
         </Col>
         <Col offset={1} span={4} style={{display: "flex", justifyContent: "space-around"}}>
-            <ShoppingCartOutlined style={{ marginTop: "20px", marginRight: "20px", fontSize: 30}}/>
+            <Link to="/shopping-cart">
+                <ShoppingCartOutlined style={{ marginTop: "20px", marginRight: "20px", fontSize: 30}}/>
+            </Link>
             <ShoppingCartOutlined style={{ marginTop: "20px",marginRight: "20px",fontSize: 30}}/>
             <ShoppingCartOutlined style={{ marginTop: "20px",marginRight: "20px", fontSize: 30}}/>
         </Col>
@@ -56,7 +64,7 @@ function MyHeader() {
         <Row >
             <Col offset={1} span={22} style={{backgroundColor: "white"}}>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} >
-                        <Menu.Item key="1">Home</Menu.Item>
+                    <Menu.Item key="1"><Link to="/" style={{color: "white"}}>Home</Link></Menu.Item>
                         <Menu.Item key="2">Shoping</Menu.Item>
                         <Menu.Item key="3">nav 3</Menu.Item>
                     </Menu>
@@ -67,7 +75,7 @@ function MyHeader() {
     <Row style={{backgroundColor: "#f0f2f5"}}>
         <Col offset={2}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Link to="/"><Breadcrumb.Item>Home</Breadcrumb.Item></Link>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
                 <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>

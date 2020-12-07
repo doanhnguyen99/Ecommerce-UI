@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Product from './components/Product';
 
 ReactDOM.render(
   <React.StrictMode>

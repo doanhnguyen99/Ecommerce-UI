@@ -4,11 +4,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import HomePage from './Page/HomePage/HomePage';
 import LoginPage from './Page/LoginPage/LoginPage';
 import RegisterPage from './Page/RegisterPage/RegisterPage';
+import ShoppngCart from './Page/ShoppingCart/ShoppingCart';
+import MyFooter from './components/MyFooter';
+import Product from './components/Product'
 
 import { Layout  } from 'antd';
 
@@ -20,18 +22,24 @@ function App() {
       <Layout>
         <MyHeader/>
         <Switch>
-          
           <Route path="/login">
             <LoginPage/>
           </Route>
           <Route path="/register">
             <RegisterPage/>
           </Route>
+          <Route path="/shopping-cart">
+            <ShoppngCart/>
+          </Route>
+          <Route path="/product">
+            <Product/>
+          </Route>
           <Route path="/">
             <HomePage/>
           </Route>
         </Switch>
-        <Footer style={{ textAlign: 'center', backgroundColor: "blue" }}>
+        <Footer style={{  backgroundColor: "#001529", marginTop: "20px" }}>
+          <MyFooter/>
         </Footer>
       </Layout>
     </Router>
