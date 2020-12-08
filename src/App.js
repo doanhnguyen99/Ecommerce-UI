@@ -31,14 +31,14 @@ function App() {
           <Route path="/shopping-cart">
             <ShoppngCart/>
           </Route>
-          <Route path="/product">
+          <Route path="/product/:id">
             <Product/>
           </Route>
           <Route path="/">
             <HomePage/>
           </Route>
         </Switch>
-        <Footer style={{  backgroundColor: "#001529", marginTop: "20px" }}>
+        <Footer style={{ backgroundColor: "#001529", marginTop: "20px" }}>
           <MyFooter/>
         </Footer>
       </Layout>

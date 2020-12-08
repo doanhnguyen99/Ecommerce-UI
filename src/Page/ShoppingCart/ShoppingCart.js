@@ -1,10 +1,12 @@
-import React, { useState} from 'react';
-import { Col, Table, Row } from 'antd';
+import React, { useState, useEffect} from 'react';
+import { Col, Table, Row, Button } from 'antd';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 const columns = [
   {
     title: 'Product',
-    dataIndex: 'product',
+    dataIndex: 'product_name',
   },
   {
     title: 'Price',
@@ -12,26 +14,37 @@ const columns = [
   },
   {
     title: 'Quatity',
-    dataIndex: 'quatity',
+    dataIndex: 'quantity',
   },
   {
     title: 'Total',
-    dataIndex: 'total',
+    dataIndex: 'total_price',
   },
 ];
 
-const data = [];
-for (let i = 0; i < 10; i++) {
-  data.push({
-    key: i,
-    product: `Edward King ${i}`,
-    price: 32,
-    quatity: i,
-    total: i *32,
-  });
-}
 
 const ShoppingCart = () => {
+  let history = useHistory();
+  const [listData, setListData] = useState([]);
+  useEffect(()=>{
+    axios({
+      method: 'get',
+      url: 'http://localhost:3000/api/user/carts',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+    }
+    }).then(res => {
+      try {
+        setListData(res.data.map((product, index) => ({key: index, ...product})));
+      } catch(err) {
+        console.log(err);
+        history.push('/login')
+      }
+      //
+      console.log(res.data);
+    });
+
+  },[]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     const onSelectChange = selectedRowKeys => {
@@ -84,7 +97,7 @@ const ShoppingCart = () => {
                     <h1 style={{textAlign: "center", paddingBottom:"30px"}}>
                         Shopping Cart
                     </h1>
-                    <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                    <Table rowSelection={rowSelection} columns={columns} dataSource={listData} />
                 </Col>
             </Row>
             <Row > 
@@ -117,6 +130,32 @@ const ShoppingCart = () => {
                         <Col offset={6} span={3}>
 
                         </Col>
+                    </Row>
+                    <Row>
+                      <Col offset={11} span={2}>
+                        <Button size="large" type="primary"
+                          onClick={() => {
+                            let arr = selectedRowKeys.map(key => ({
+                              product_id: listData[key].product_id,
+                              quantity: listData[key].quantity}));
+
+                            axios({
+                              method: 'post',
+                              url: 'http://localhost:3000/api/user/orders',
+                              data: {
+                                  orders: arr
+                              },
+                              headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem("token")
+                              }
+                            }). then(res => {
+                              console.log(res.data)
+                              history.push('/')
+                            })
+                            console.log(arr)
+                          }}
+                        >Buy</Button>
+                      </Col>
                     </Row>
                 </Col>
             </Row>

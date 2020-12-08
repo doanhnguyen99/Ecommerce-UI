@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Input, Layout, Menu, Breadcrumb } from 'antd';
-import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined  } from '@ant-design/icons';
+import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined, ShopOutlined  } from '@ant-design/icons';
 import HomeIMG from './../image/home.png';
 import {
     BrowserRouter as Router,
@@ -53,10 +53,11 @@ function MyHeader() {
         </Col>
         <Col offset={1} span={4} style={{display: "flex", justifyContent: "space-around"}}>
             <Link to="/shopping-cart">
-                <ShoppingCartOutlined style={{ marginTop: "20px", marginRight: "20px", fontSize: 30}}/>
+                <ShoppingCartOutlined style={{ marginTop: "20px",  fontSize: 30}}/>
             </Link>
-            <ShoppingCartOutlined style={{ marginTop: "20px",marginRight: "20px",fontSize: 30}}/>
-            <ShoppingCartOutlined style={{ marginTop: "20px",marginRight: "20px", fontSize: 30}}/>
+            <Link to="/my-shop">
+                <ShopOutlined style={{ marginTop: "20px", fontSize: 30}}/>
+            </Link>
         </Col>
 
     </Row>
@@ -65,8 +66,8 @@ function MyHeader() {
             <Col offset={1} span={22} style={{backgroundColor: "white"}}>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} >
                     <Menu.Item key="1"><Link to="/" style={{color: "white"}}>Home</Link></Menu.Item>
-                        <Menu.Item key="2">Shoping</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
+                        <Menu.Item key="2">Products Sale</Menu.Item>
+                        <Menu.Item key="3">Category</Menu.Item>
                     </Menu>
             </Col>
         </Row>

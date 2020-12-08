@@ -36,7 +36,7 @@ const MyFooter = () => {
                     <div>
                         <b>Contact info</b>
                         <br/>
-                        256 xuan thuy, dich vong hau, cau giay, HN
+                        144 xuan thuy, dich vong hau, cau giay, HN
                     </div>
                     </Col>
                 </Row>

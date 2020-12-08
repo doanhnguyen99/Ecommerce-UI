@@ -20,8 +20,10 @@ const LoginPage = () => {
       data: {
         "api_user": values
       }
-    }). then((response)=>{
-        console.log(response.data)
+    }).then((response) => {
+      window.localStorage.setItem("token", response.data.token);
+
+      console.log(response.data);
 
     });
     console.log('Success:', values);

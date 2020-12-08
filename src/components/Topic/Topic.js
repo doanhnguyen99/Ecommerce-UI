@@ -2,11 +2,11 @@ import React from 'react';
 import './Topic.css';
 import img from './../../image/sua.jpeg';
 
-const Card = ({title, link}) => {
+const Card = ({title, url}) => {
     return(
         <div class="mycard">
             <div class="myimg">
-                <img src={link} width="100px" height="100px"/>
+                <img src={url} width="100px" height="100px"/>
             </div>
             <div class="myText">
                 {title}
