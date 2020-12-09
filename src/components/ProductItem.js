@@ -5,21 +5,21 @@ import { Rate, Tag } from 'antd'
 
 const ProductITem = () => {
     return (
-        <div className="product" style={{border: "1px solid gray", borderRadius: "20px",  width: "300px", display: "flex", flexDirection: "column", justifyContent:"space-around", alignItems: "center"}}>
-            <div style={{paddingTop: "20px", borderRadius: "20px", width:"255px"}}>
+        <div className="product" style={{border: "1px solid gray", borderRadius: "20px",  width: "250px", display: "flex", flexDirection: "column", justifyContent:"space-around", alignItems: "center"}}>
+            <div style={{marginTop: "20px", borderRadius: "20px", width:"90%"}}>
                 <img src={sua} width="100%" height="100%"/>
             </div>
-            <div style={{width: "250px", height: "50px"}}>
-            Vintage Typewriter to post awesome stories about UI design and webdev.
+            <div style={{width: "90%",}}>
+            Vintage Typewriter to post awesome stor
             </div>
-            <span style={{width: "250px",fontSize: "20px"}}>
+            <span style={{width: "90%",fontSize: "20px"}}>
                 $49.0
             </span>
-            <span style={{width: "250px",color: "gray", }}>
+            <span style={{width: "90%",color: "gray", }}>
             ypewriter to post awesome sto
             </span>
 
-            <div style={{width: "250px", paddingBottom: "20px"}}>
+            <div style={{width: "90%", marginBottom: "20px"}}>
                 <Rate allowHalf defaultValue={2.5} /> <span style={{marginLeft: "5px"}}>2.5</span>
                 <Tag icon={<HeartTwoTone twoToneColor="#fadb14" />} color="#fadb14" style={{marginLeft: "10px", marginRight: 0}}>
                     Watch

@@ -29,7 +29,7 @@ const ListProduct = ({products}) => {
             }}>
                 {
                     products && products.slice(2).map(product => 
-                        <Link to={`/product/${product.id}`}>
+                        <Link to={`/product/${product.id}`} style={{color: "black"}}>
                             <ProductItems 
                                 name={product.name} price={product.price} url={product.link_img[0]}/>
                                 </Link>)

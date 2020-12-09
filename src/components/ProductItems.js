@@ -11,7 +11,8 @@ const ProductITems = ({ name, price, url }) => {
             </div>
             <div style={{
                 width: "100%",
-                height: "30px"
+                height: "30px",
+                fontSize: "18px",
             }}>
                 {name}
             </div>

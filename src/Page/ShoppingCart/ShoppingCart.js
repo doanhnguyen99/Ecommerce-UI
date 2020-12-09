@@ -149,7 +149,7 @@ const ShoppingCart = () => {
                                 'Authorization': 'Bearer ' + localStorage.getItem("token")
                               }
                             }). then(res => {
-                              console.log(res.data)
+                              console.log(res.data);
                               history.push('/')
                             })
                             console.log(arr)

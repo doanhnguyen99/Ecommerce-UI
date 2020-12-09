@@ -9,6 +9,7 @@ import {
     Switch,
     Route,
     Link,
+    useHistory,
     useParams
   } from "react-router-dom";
 
@@ -16,6 +17,7 @@ import { FacebookOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 
 const Product = () => {
+    let history = useHistory();
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
     const onChange = (value) => {
@@ -92,6 +94,7 @@ const Product = () => {
                                         'Authorization': 'Bearer ' + localStorage.getItem("token")
                                     }
                                 }).then(res => {
+                                    history.push("/shopping-cart")
                                     console.log(res.data);
                                 })
                             }}
@@ -103,26 +106,27 @@ const Product = () => {
             </Col>
         </Row>
         {/* <ListProduct products={data.products_1}/> */}
+        
         <Row style={{marginTop: "30px"}}>
-            <Col offset={2} span={20}>
-                <List
-                    grid={{ gutter: 16, column: 4 }}
-                    dataSource={[
-                        
-                        {
-                          title: 'Title 2',
-                        },
-                        {
-                          title: 'Title 3',
-                        },
-                        {
-                          title: 'Title 4',
-                        },
-                      ]}
-                    renderItem={item => (
-                         <ProductItem title={item.title}>Card content</ProductItem>
-                    )}
-                />
+            <Col offset={1} span={22} style={{display:"flex", justifyContent:"space-between"}}>
+           {
+               [ 
+                {
+                    title: 'Title 1',
+                  },
+                  {
+                    title: 'Title 2',
+                  },       
+                {
+                  title: 'Title 3',
+                },
+                {
+                  title: 'Title 4',
+                },
+              ].map(item => (
+                 <ProductItem title={item.title}>Card content</ProductItem>
+            ))
+           } 
             </Col>
         </Row>
     </>

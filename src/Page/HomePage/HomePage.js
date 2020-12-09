@@ -16,7 +16,7 @@ const HomePage = () => {
     useEffect(() => {
         axios({
             method: 'get',
-            url:"http://localhost:3000/api/home"
+            url: "http://localhost:3000/api/home"
         }).then(res => {
             setData(res.data);
             console.log(res.data);

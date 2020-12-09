@@ -3,13 +3,7 @@ import {
   Form,
   Input,
   Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
+  Modal
 } from 'antd';
 import axios from "axios";
 
@@ -21,6 +15,7 @@ const RegisterPage = () => {
 
   const onFinish = values => {
     console.log(caches);
+    showModal();
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/users',
@@ -28,6 +23,7 @@ const RegisterPage = () => {
         "api_user": values
       }
     }). then((response)=>{
+      showModal();
       console.log(response.data)
 
   });
@@ -40,6 +36,20 @@ const RegisterPage = () => {
 
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
   return (
     <>
@@ -76,6 +86,15 @@ const RegisterPage = () => {
         </Button>
       </Form.Item>
       </Form>
+      <Modal
+        title="Thông báo"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Kiểm tra email của để xác thực email</p>
+       
+      </Modal>
     </>
   );
 };

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
-
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const layout = {
@@ -13,6 +13,8 @@ const tailLayout = {
 };
 
 const LoginPage = () => {
+  let history = useHistory();
+
   const onFinish = values => {
     axios({
       method: 'post',
@@ -22,7 +24,7 @@ const LoginPage = () => {
       }
     }).then((response) => {
       window.localStorage.setItem("token", response.data.token);
-
+      history.push("/home")
       console.log(response.data);
 
     });

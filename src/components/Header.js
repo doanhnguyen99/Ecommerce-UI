@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Input, Layout, Menu, Breadcrumb } from 'antd';
-import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined, ShopOutlined  } from '@ant-design/icons';
+import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined, ShopOutlined, UnorderedListOutlined  } from '@ant-design/icons';
 import HomeIMG from './../image/home.png';
 import {
     BrowserRouter as Router,
@@ -9,7 +9,6 @@ import {
     Link
   } from "react-router-dom";
 
-const style = { };
 
 const { Search } = Input;
 const { SubMenu } = Menu;
@@ -55,6 +54,10 @@ function MyHeader() {
             <Link to="/shopping-cart">
                 <ShoppingCartOutlined style={{ marginTop: "20px",  fontSize: 30}}/>
             </Link>
+            <Link to="/my-order">
+            <UnorderedListOutlined style={{ marginTop: "20px", fontSize: 30}} />
+               
+            </Link>
             <Link to="/my-shop">
                 <ShopOutlined style={{ marginTop: "20px", fontSize: 30}}/>
             </Link>
@@ -67,7 +70,7 @@ function MyHeader() {
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} >
                     <Menu.Item key="1"><Link to="/" style={{color: "white"}}>Home</Link></Menu.Item>
                         <Menu.Item key="2">Products Sale</Menu.Item>
-                        <Menu.Item key="3">Category</Menu.Item>
+                        <Menu.Item key="3"><Link to="/categoris" style={{color: "white"}}>Category</Link></Menu.Item>
                     </Menu>
             </Col>
         </Row>
