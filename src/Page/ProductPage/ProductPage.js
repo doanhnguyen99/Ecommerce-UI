@@ -115,6 +115,11 @@ const Product = () => {
             </Col>
         </Row>
         {/* <ListProduct products={data.products_1}/> */}
+        <Row style={{marginTop: "30px"}}>
+            <Col offset={1} span={22} style={{display:"flex", justifyContent:"space-between"}}>
+                <CommentComponent comment={product.comments}/>
+            </Col>
+        </Row>
         
         <Row style={{marginTop: "30px"}}>
             <Col offset={1} span={22} style={{display:"flex", justifyContent:"space-between"}}>

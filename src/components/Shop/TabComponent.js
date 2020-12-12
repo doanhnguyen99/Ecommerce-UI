@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Row,Tabs, Col } from 'antd';
 import {  MailOutlined, SettingOutlined } from '@ant-design/icons';
 import WaitingAccept from './WaitingAccept';
+import ProductManagement from './ProductManagement'
 
 const { TabPane } = Tabs;
 
@@ -11,7 +12,6 @@ function callback(key) {
 const { SubMenu } = Menu;
 
 const TabComponent = ({tab}) => {
-    let MyDom = {};
     switch(tab){
         case 1: return (
             <Tabs defaultActiveKey="1" onChange={callback}>
@@ -31,7 +31,7 @@ const TabComponent = ({tab}) => {
                 Content of Tab Pane 5
                 </TabPane>
             </Tabs>);
-            case 2: return (<>utut</>);
+            case 2: return (<ProductManagement/>);
             case 9: return (<>thoong tin tai khoan</>)
     }
     

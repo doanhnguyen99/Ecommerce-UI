@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Row, Col, Input, Layout, Menu, Breadcrumb } from 'antd';
 import { PhoneOutlined, MailOutlined,UserOutlined, ShoppingCartOutlined, ShopOutlined, UnorderedListOutlined  } from '@ant-design/icons';
 import HomeIMG from './../image/home.png';
+import {AppContext} from './../App';
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,7 +15,8 @@ const { Search } = Input;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function MyHeader() {
-    
+    const { auth,
+        setAuth, profile,} = useContext(AppContext);
     const onSearch = value => console.log(value);
   return (
     <div style={{backgroundColor: "white"}} >
@@ -26,9 +28,15 @@ function MyHeader() {
                 <MailOutlined style={{marginLeft:"10px"}}/> nguyenvantuhym@gmail.com
                 </Col>
                 <Col span={3} offset={8}>
-                    <Link to="/register"><UserOutlined /> Register</Link>
-                    <span style={{margin:"10px", fontSize: 15}}>or</span>
-                    <Link to="/login"><UserOutlined /> Sign In</Link>
+                    {
+                        (auth)?<div><Link to="/profile"><UserOutlined />{profile.name}</Link></div>:
+                        <div>
+                            <Link to="/register"><UserOutlined /> Register</Link>
+                            <span style={{margin:"10px", fontSize: 15}}>or</span>
+                            <Link to="/login"><UserOutlined /> Sign In</Link>
+                        </div>
+                        
+                    }
                 </Col>
             </Row>
         </Col>

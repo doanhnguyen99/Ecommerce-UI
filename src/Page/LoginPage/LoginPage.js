@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from './../../App';
 
 const layout = {
   labelCol: { span: 5 },
@@ -13,6 +14,7 @@ const tailLayout = {
 };
 
 const LoginPage = () => {
+  const {auth, setAuth, profile, setProfile} = useContext(AppContext);
   let history = useHistory();
 
   const onFinish = values => {
@@ -24,6 +26,8 @@ const LoginPage = () => {
       }
     }).then((response) => {
       window.localStorage.setItem("token", response.data.token);
+      setProfile(response.data);
+      setAuth(true);
       history.push("/home")
       console.log(response.data);
 
