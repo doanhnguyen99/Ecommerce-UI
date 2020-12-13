@@ -18,6 +18,7 @@ const WaitingAccept = ({type}) =>{
                 'Authorization': 'Bearer ' + localStorage.getItem("token")
             }
         }).then(res => {
+          console.log(res.data);
             try {
                 setLitProduct(res.data.filter((product, index) => (product.state === type)).map((product, index) => ({key: index, ...product})));
             } catch(err){

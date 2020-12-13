@@ -1,41 +1,130 @@
 import React, { useState, useEffect} from 'react';
-import { Col, Table, Row, Button } from 'antd';
+import { Col, Table,Modal, InputNumber, Row, Space, Tag, Button } from 'antd';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
-const columns = [
-  {
-    title: 'Product',
-    dataIndex: 'product_name',
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-  },
-  {
-    title: 'Quatity',
-    dataIndex: 'quantity',
-  },
-  {
-    title: 'Total',
-    dataIndex: 'total_price',
-  },
-];
+
 
 
 const ShoppingCart = () => {
+  const [myRecord, setMyRecord] = useState({});
   let history = useHistory();
   const [listData, setListData] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+      axios({
+        method: 'DELETE',
+        url:'http://localhost:3000/api/user/carts',
+        data:{
+          ids: [myRecord.id],
+        },
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+      }).then(res => {
+        setMyRecord({});
+        axios({
+          method: 'get',
+          url: 'http://localhost:3000/api/user/carts',
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+          }
+        }).then(res => {
+          try {
+            setListData(res.data.map((product, index) => ({key: index, ...product, price: product.total_price/product.quantity})));
+          } catch(err) {
+            console.log(err);
+            history.push('/login')
+          }
+          //
+          console.log(res.data);
+        });
+        
+      })
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const columns = [
+    {
+      title: 'Product',
+      dataIndex: 'product_name',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+    },
+    {
+      title: 'Quatity',
+      dataIndex: 'quantity',
+      render: (text, record) =>{
+        console.log(record)
+        return (
+          <Space size="middle">
+            <InputNumber value={text} onChange={(value) => {
+              // console.log(value);
+            let index = record.key;
+            let newListData = [
+              ...listData.slice(0,index),
+              {...record, quantity : value, total_price: record.price * value},
+              ...listData.slice(index + 1)
+            ];
+              setListData(newListData);
+              axios({
+                method: "PATCH",
+                url: "http://localhost:3000/api/user/carts",
+                data: {
+                  carts: newListData.map(data => ({id :data.id, product_id: data.product_id, quantity: data.quantity }))
+                },
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+              }).then(res => {
+                console.log(res.data);
+              })
+              }}/>
+          </Space>
+        )
+      },
+    },
+    {
+      title: 'Total',
+      dataIndex: 'total_price',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) =>{
+        
+        return (
+          <Space size="middle">
+            <Tag color={"red"} onClick={() => {
+              setIsModalVisible(true);
+              setMyRecord(record);
+              }}>Delete</Tag>
+          </Space>
+        )
+      },
+    },
+  ];
   useEffect(()=>{
     axios({
       method: 'get',
       url: 'http://localhost:3000/api/user/carts',
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
-    }
+      }
     }).then(res => {
       try {
-        setListData(res.data.map((product, index) => ({key: index, ...product})));
+        setListData(res.data.map((product, index) => ({key: index, ...product, price: product.total_price/product.quantity})));
       } catch(err) {
         console.log(err);
         history.push('/login')
@@ -43,12 +132,21 @@ const ShoppingCart = () => {
       //
       console.log(res.data);
     });
-
+    
   },[]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     const onSelectChange = selectedRowKeys => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
+        let _totalPrice = 0;
+        let lsProduct = selectedRowKeys.map(index => listData[index]); 
+        for(let i = 0; i < lsProduct.length; i ++){
+          _totalPrice += parseFloat(lsProduct[i].total_price);
+        }
+        //  let _totalPrice = selectedRowKeys.map(index => listData[index]).reduce((sum, product) => {
+        //     return sum + product.total_price;
+        // })
+        setTotalPrice(_totalPrice);
         setSelectedRowKeys(selectedRowKeys);
       };
     
@@ -110,7 +208,7 @@ const ShoppingCart = () => {
                             Product total:
                         </Col>
                         <Col offset={6} span={3}>
-                        12485
+                        {totalPrice}
                         </Col>
                     </Row>
 
@@ -119,7 +217,7 @@ const ShoppingCart = () => {
                             Shipping:
                         </Col>
                         <Col offset={6} span={3}>
-
+                          {30000}
                         </Col>
                     </Row>
 
@@ -128,7 +226,7 @@ const ShoppingCart = () => {
                             Total:
                         </Col>
                         <Col offset={6} span={3}>
-
+                        {totalPrice <= 0? 0: totalPrice+30000 }
                         </Col>
                     </Row>
                     <Row>
@@ -155,6 +253,15 @@ const ShoppingCart = () => {
                             console.log(arr)
                           }}
                         >Buy</Button>
+                        <Modal
+                          title="Thông báo"
+                          visible={isModalVisible}
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                        >
+                          <p>Bạn có chắc chắn muốn xóa sản phẩm này ra khỏi giỏ hàng ?</p>
+                          
+                        </Modal>
                       </Col>
                     </Row>
                 </Col>

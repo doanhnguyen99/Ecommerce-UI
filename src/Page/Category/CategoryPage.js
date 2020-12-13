@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Row, Col } from 'antd';
 import axios from 'axios';
 import CategoryComponent from './CategoryComponent';
-import ProductItems from './../../components/ProductItems';
+import ProductItem from './../../components/ProductItem';
 import {
     BrowserRouter as Router,
     Switch,
@@ -33,10 +33,11 @@ const CategoryPage = () => {
                         data={category.products}
                         renderItem={(product) => 
                             <Link to={`/product/${product.id}`} style={{color: "black"}}>
-                                <ProductItems
+                                <ProductItem
                                     name={product.name}
                                     price={product.price}
-                                    url={product.link_img[0]}
+                                    img={product.link_img}
+                                    description={product.description}
                                 />
                             </Link>
                         }

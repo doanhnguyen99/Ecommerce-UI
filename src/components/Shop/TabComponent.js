@@ -3,6 +3,7 @@ import { Menu, Row,Tabs, Col } from 'antd';
 import {  MailOutlined, SettingOutlined } from '@ant-design/icons';
 import WaitingAccept from './WaitingAccept';
 import ProductManagement from './ProductManagement'
+import ShopInfo from './ShopInfo'
 
 const { TabPane } = Tabs;
 
@@ -32,7 +33,7 @@ const TabComponent = ({tab}) => {
                 </TabPane>
             </Tabs>);
             case 2: return (<ProductManagement/>);
-            case 9: return (<>thoong tin tai khoan</>)
+            case 9: return (<ShopInfo/>)
     }
     
     return (

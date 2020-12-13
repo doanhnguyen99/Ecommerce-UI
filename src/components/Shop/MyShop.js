@@ -35,8 +35,8 @@ const Order = () => {
                     </SubMenu>
                     
                     <SubMenu key="sub4" icon={<SettingOutlined />} title="Quản lý tài khoản">
-                        <Menu.Item key="9">Thông tin tài khoản</Menu.Item>
-                        <Menu.Item key="10">Shop yêu thích</Menu.Item>
+                        <Menu.Item key="9">Thông tin Shop</Menu.Item>
+                        <Menu.Item key="10">lịch sử khách hàng</Menu.Item>
                         <Menu.Item key="11">Ưu đãi của tôi</Menu.Item>
                         <Menu.Item key="12">Hỏi đáp</Menu.Item>
                     </SubMenu>

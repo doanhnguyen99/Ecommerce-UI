@@ -1,7 +1,7 @@
 import { Card, Row, Col } from 'antd';
 import React, {useEffect, useState} from 'react';
 import sua from './../image/sua.jpeg';
-import ProductItems from './ProductItems';
+import ProductItem from './ProductItem';
 import {
     BrowserRouter as Router,
     Switch,
@@ -30,8 +30,8 @@ const ListProduct = ({products}) => {
                 {
                     products && products.slice(2).map(product => 
                         <Link to={`/product/${product.id}`} style={{color: "black"}}>
-                            <ProductItems 
-                                name={product.name} price={product.price} url={product.link_img[0]}/>
+                            <ProductItem 
+                                name={product.name} price={product.price} img={product.link_img[0]} description={product.description}/>
                                 </Link>)
                 }
            
