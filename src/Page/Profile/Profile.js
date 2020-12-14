@@ -52,7 +52,6 @@ const Profile = () => {
       {...layout}
       form={form}
       name="basic"
-      
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >

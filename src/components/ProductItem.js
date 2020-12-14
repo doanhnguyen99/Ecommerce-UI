@@ -20,7 +20,7 @@ const ProductItem = ({name, img, price, description}) => {
             </span>
 
             <div style={{width: "90%", marginBottom: "20px"}}>
-                <Rate allowHalf  disabled defaultValue={2.5} /> <span style={{marginLeft: "5px"}}>2.5</span>
+                <Rate allowHalf  disabled defaultValue={Math.floor(Math.random() * 4)+2} /> <span style={{marginLeft: "5px"}}></span>
                 <Tag icon={<HeartTwoTone twoToneColor="#fadb14" />} color="#fadb14" style={{marginLeft: "10px", marginRight: 0}}>
                     Watch
                 </Tag>

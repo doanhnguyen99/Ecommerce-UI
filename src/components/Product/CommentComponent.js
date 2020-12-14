@@ -5,9 +5,8 @@ import { Comment,Row, Col,  Tooltip, Avatar, Rate, Tag } from 'antd';
 const CommentComponent = ({comment}) => {
     console.log(comment)
     return (
-        <Row style={{marginTop: "30px"}}>
-            <Col offset={1} span={22} style={{backgroundColor: "white"}}>
-                <div style={{margin: "20px"}}>
+        
+                <div style={{margin: "0px", backgroundColor: "white", padding: "20px"}}>
                     <h1>ĐÁNH GIÁ SẢN PHẨM</h1>
                     <Comment
                 // actions={actions}
@@ -37,8 +36,7 @@ const CommentComponent = ({comment}) => {
                     />
                 </div>
                 
-            </Col>
-        </Row>
+            
         
     )
 }

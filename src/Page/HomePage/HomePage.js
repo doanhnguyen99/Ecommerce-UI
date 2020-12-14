@@ -40,9 +40,9 @@ const HomePage = () => {
             </Col>
             </Row>
             <ListTopic />
-            <ListProduct products={data.products_1}/>
-            <ListProduct products={data.products_2}/>
-            <ListProduct products={data.products_3}/>
+            <ListProduct  title={'Sản phẩm bán chạy'} products={data.products_1}/>
+            <ListProduct title={'Sản phẩm được tài trợ'} products={data.products_2}/>
+            <ListProduct title={'Sản phẩm được gợi ý'} products={data.products_3}/>
 
         </>
     )

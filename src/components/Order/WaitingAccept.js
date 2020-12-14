@@ -77,21 +77,7 @@ const WaitingAccept = ({type}) =>{
                 columns={columns}
                 dataSource={listProduct}
                 />
-                {
-                    (type === "waiting_accept" && <Button type="primary" onClick={() =>{
-                    
-                            axios({
-                                method: "patch",
-                                url: "http://localhost:3000/api/store/orders/accept",
-                                data: {ids:listSelect.map(data => data.id)},
-                                headers: {
-                                    'Authorization': 'Bearer ' + localStorage.getItem("token")
-                                }
-                            }).then(res => {
-                                console.log(res.data)
-                            });
-                    }}>Chấp nhận đơn hàng</Button>)
-                }
+               
             </div>
         </>
     )

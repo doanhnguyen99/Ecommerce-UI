@@ -15,6 +15,7 @@ import {
 
 import { FacebookOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import CommentComponent from '../../components/Product/CommentComponent';
+import StoreComponent from '../../components/Product/StoreComponent';
 
 
 const Product = () => {
@@ -115,19 +116,24 @@ const Product = () => {
             </Col>
         </Row>
         {/* <ListProduct products={data.products_1}/> */}
-        <Row style={{marginTop: "30px"}}>
-            <Col offset={1} span={22} style={{display:"flex", justifyContent:"space-between"}}>
+        <Row style={{marginTop: "10px"}}>
+            <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
+               <StoreComponent idStore={product.store_id} />
+            </Col>
+        </Row>
+        <Row style={{marginTop: "10px"}}>
+            <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
                 <CommentComponent comment={product.comments}/>
             </Col>
         </Row>
         
-        <Row style={{marginTop: "30px"}}>
-            <Col offset={1} span={22} style={{display:"flex", justifyContent:"space-between"}}>
+        <Row style={{marginTop: "10px"}}>
+            <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
                 <CommentComponent comment={product.comments}/>
             </Col>
         </Row>
         
-        <Row style={{marginTop: "30px"}}>
+        <Row style={{marginTop: "20px"}}>
             <Col offset={2} span={20}>
                 <h1 style={{backgroundColor: "white", paddingLeft:"30px", marginBottom:"0", paddingTop: "20px"}}>Sản phẩm liên quan</h1>
                 <Row>
