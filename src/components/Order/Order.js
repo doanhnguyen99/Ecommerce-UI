@@ -41,23 +41,21 @@ const Order = () => {
                     </SubMenu>
                 </Menu>
             </Col>
-            <Col span={15} style={{backgroundColor: "white", paddingLeft: "20px"}}>
+            <Col span={15} style={{backgroundColor: "white", padding: "20px"}}>
                 <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="Chờ xác nhận" key="1">
-                        <WaitingAccept type="waiting_accept"/>
-                    </TabPane>
-                    <TabPane tab="Đã xác nhận" key="2">
-                        <WaitingAccept type="store_accepted"/>
-                    </TabPane>
-                    <TabPane tab="Đang vận chuyển" key="3">
-                        <WaitingAccept type="store_accepted"/>
-                    </TabPane>
-                    <TabPane tab="Đã giao hàng" key="4">
-                    Content of Tab Pane 4
-                    </TabPane>
-                    <TabPane tab="Đã hủy" key="5">
-                    Content of Tab Pane 5
-                    </TabPane>
+                <TabPane tab="Chờ xác nhận" key="1">
+                    <WaitingAccept type="waiting_accept"/>
+                </TabPane>
+                <TabPane tab="Đã xác nhận & Đang vận chuyển" key="2">
+                    <WaitingAccept type="store_accepted"/>
+                </TabPane>
+                
+                <TabPane tab="Đã giao hàng" key="4">
+                <WaitingAccept type="user_success"/>
+                </TabPane>
+                <TabPane tab="Đã hủy" key="5">
+                <WaitingAccept type="user_cancel"/>
+                </TabPane>
                 </Tabs>
             </Col>
         </Row>

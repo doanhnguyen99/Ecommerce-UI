@@ -206,8 +206,8 @@ const FormEdit = ({categorys, onLoad,close,  dataFormEdit, add }) => {
         <PicturesWall form={form} imgProduct={lsimg} />
       </Form.Item>
       
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" 
+      <Form.Item>
+        <Button type="primary" style={{marginLeft: "160px"}} 
         //htmlType="submit"
         onClick={() => { 
             //console.log(res.current.files);
@@ -264,6 +264,7 @@ const FormEdit = ({categorys, onLoad,close,  dataFormEdit, add }) => {
         >
           Submit
         </Button>
+        <Button style={{marginLeft: "100px"}} onClick={()=> close()}>Cancel</Button>
       </Form.Item>
     </Form>
   );

@@ -29,13 +29,12 @@ function MyHeader() {
                 </Col>
                 <Col span={3} offset={8}>
                     {
-                        (auth)?<div><Link to="/profile"><UserOutlined />{profile.name}</Link></div>:
+                        (auth)?<div><Link to="/profile"><UserOutlined />{localStorage.getItem("user")}</Link></div>:
                         <div>
                             <Link to="/register"><UserOutlined /> Register</Link>
                             <span style={{margin:"10px", fontSize: 15}}>or</span>
                             <Link to="/login"><UserOutlined /> Sign In</Link>
                         </div>
-                        
                     }
                 </Col>
             </Row>

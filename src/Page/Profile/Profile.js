@@ -1,7 +1,9 @@
-import React, { useState,  useContext, useEffect } from 'react';
+import React, { useState, Space, useContext, useEffect } from 'react';
 import {
     Form, Input, Button, Radio
 } from 'antd';
+
+import { useHistory } from "react-router-dom";
 import { AppContext } from './../../App'
 import axios from "axios";
 const layout = {
@@ -20,8 +22,9 @@ const layout = {
     },
   };
 const Profile = () => {
+  let history = useHistory();
     const [form] = Form.useForm();
-    const { profile } = useContext(AppContext);
+    const { profile, setAuth } = useContext(AppContext);
     const [profileState, setProfileState] = useState(profile)  
     useEffect(()=>{
         axios({
@@ -118,10 +121,19 @@ const Profile = () => {
     
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" onClick={()=>{
-        }}>
-          Cập nhật
-        </Button>
+        
+          <Button type="primary" htmlType="submit" onClick={()=>{
+          }}>
+            Cập nhật
+          </Button>
+          <Button type="primary" danger style={{marginLeft: "10px"}} onClick={() => {
+            localStorage.setItem("token", null);
+            localStorage.setItem("user", null);
+            localStorage.setItem("auth", null);
+            setAuth(false);
+            history.push('/login')
+          }}>logout</Button>
+        
       </Form.Item>
     </Form>
     

@@ -3,15 +3,46 @@ import { Col, Table,Modal, InputNumber, Row, Space, Tag, Button } from 'antd';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
-
-
-
 const ShoppingCart = () => {
   const [myRecord, setMyRecord] = useState({});
   let history = useHistory();
   const [listData, setListData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalOrder, setIsModalOrder] = useState(false);
+
+const countDown = (title, content,flag) => {
+  let secondsToGo = 3;
+  let modal;
+  switch(flag){
+    case -1: modal = Modal.error({
+      title: title,
+      content: content,
+    }); break;
+    case 0: modal = Modal.warning({
+      title: title,
+      content: content,
+    }); break;
+    case 1: modal = Modal.success({
+      title: title,
+      content: content,
+    }); break;
+  }
+ 
+  // const timer = setInterval(() => {
+  //   secondsToGo -= 1;
+  //   modal.update({
+  //     content: `This modal will be destroyed after ${secondsToGo} second.`,
+  //   });
+  // }, 1000);
+  setTimeout(() => {
+    //clearInterval(timer);
+    if(flag === 1){
+      history.push('/my-order')
+    }
+    modal.destroy();
+  }, secondsToGo * 1000);
+}
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -90,6 +121,9 @@ const ShoppingCart = () => {
               }).then(res => {
                 console.log(res.data);
               })
+              .catch(err => {
+                
+              })
               }}/>
           </Space>
         )
@@ -102,7 +136,8 @@ const ShoppingCart = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) =>{
+      fixed: 'right',
+      render: (text, record) => {
         
         return (
           <Space size="middle">
@@ -235,8 +270,14 @@ const ShoppingCart = () => {
                           onClick={() => {
                             let arr = selectedRowKeys.map(key => ({
                               product_id: listData[key].product_id,
-                              quantity: listData[key].quantity}));
+                              quantity: listData[key].quantity,
+                              id: listData[key].id
+                            }));
 
+                              if(arr.length <1) {
+                                countDown("thong bao"," banj chua chon san pham naof !",0);
+                                return;
+                              }
                             axios({
                               method: 'post',
                               url: 'http://localhost:3000/api/user/orders',
@@ -248,9 +289,24 @@ const ShoppingCart = () => {
                               }
                             }). then(res => {
                               console.log(res.data);
-                              history.push('/')
-                            })
-                            console.log(arr)
+                              console.log(arr);
+                              axios({
+                                method: 'DELETE',
+                                url:'http://localhost:3000/api/user/carts',
+                                data:{
+                                  ids: arr.map(data => data.id),
+                                },
+                                headers: {
+                                  'Authorization': 'Bearer ' + localStorage.getItem("token")
+                                }
+                              }).then(result => {
+                                console.log(result.data)
+                              });
+                              countDown("thong bao","banj dawt hangf thanh cong!",1);
+                              //history.push('/')
+                            }).catch(err => {
+                              countDown("thong bao","co loi xay ra!!",-1);
+                            });
                           }}
                         >Buy</Button>
                         <Modal

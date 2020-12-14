@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
-import { Table, Button } from 'antd';
-import Product from '../Product';
+import { Table, Modal, Button } from 'antd';
 
 import { useHistory } from "react-router-dom";
 
@@ -10,26 +9,98 @@ const WaitingAccept = ({type}) =>{
     let history = useHistory();
     const [listProduct, setLitProduct] = useState([]);
     const [listSelect, setListSelect ] = useState([]);
-    useEffect(() => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [dataModal, setDataModal] = useState({});
+
+    
+    
+    const reload = () => {
         axios({
-            method:'get',
-            url: 'http://localhost:3000/api/store/orders',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token")
-            }
-        }).then(res => {
+          method:'get',
+          url: 'http://localhost:3000/api/store/orders',
+          headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem("token")
+          }
+      }).then(res => {
+        console.log(res.data);
+          try {
+              setLitProduct(res.data.filter((product) => (product.state === type)).map((product, index) => ({key: index, ...product})));
+          } catch(err){
+              console.log(err);
+              history.push('/login')
+          }
+        
           console.log(res.data);
-            try {
-                setLitProduct(res.data.filter((product, index) => (product.state === type)).map((product, index) => ({key: index, ...product})));
-            } catch(err){
-                console.log(err);
-                history.push('/login')
-            }
-          
-            console.log(res.data);
 
-        });
+      });
+    }
+    const acceptProduct = () => {
 
+      axios({
+        method: "patch",
+        url: "http://localhost:3000/api/store/orders/accept",
+        data: {ids:listSelect.map(data => data.id)},
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+      }).then(res => {
+          console.log(res.data);
+          reload();
+
+      });
+    }
+    const successProduct = () => {
+      axios({
+        method: "patch",
+        url: "http://localhost:3000/api/user/orders/success",
+        data: {ids:listSelect.map(data => data.id)},
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+      }).then(res => {
+          console.log(res.data);
+          reload();
+
+      });
+    }
+    const cancelProduct = () => {
+      axios({
+        method: "patch",
+        url: "http://localhost:3000/api/store/orders/cancel",
+        data: {ids:listSelect.map(data => data.id)},
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+      }).then(res => {
+          console.log(res.data);
+          reload();
+
+      });
+    }
+
+    const showModal = (title, content,flag) => {
+      setDataModal({title, content,flag});
+      setIsModalVisible(true);
+    };
+  
+    const handleOk = () => {
+      switch(dataModal.flag){
+        case 1: acceptProduct();
+        break;
+        case 2: successProduct();
+        break;
+        case 3: cancelProduct();
+        break;
+      }
+     
+      setIsModalVisible(false);
+    };
+  
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
+    useEffect(() => {
+      reload();
     },[]);
 
     const columns = [
@@ -53,6 +124,12 @@ const WaitingAccept = ({type}) =>{
           {
             title: 'Trạng thái đơn hàng',
             dataIndex: 'state',
+           
+          },
+          {
+            title: 'Action',
+            //dataIndex: 'state',
+            fixed: 'right',
           },
       ];
 
@@ -76,24 +153,36 @@ const WaitingAccept = ({type}) =>{
                     ...rowSelection,
                 }}
                 columns={columns}
+                
+                
                 dataSource={listProduct}
                 />
                 {
-                    (type === "waiting_accept" && <Button type="primary" onClick={() =>{
-                    
-                            axios({
-                                method: "patch",
-                                url: "http://localhost:3000/api/store/orders/accept",
-                                data: {ids:listSelect.map(data => data.id)},
-                                headers: {
-                                    'Authorization': 'Bearer ' + localStorage.getItem("token")
-                                }
-                            }).then(res => {
-                                console.log(res.data)
-                            });
-                    }}>Chấp nhận đơn hàng</Button>)
+                    (type === "waiting_accept" && <Button type="primary" onClick={() => {
+                      showModal("Thông báo","Bạn có thực sự muốn chấp nhận các đơn hàng đã chọn. ",1)
+                      }}>
+                      Chấp nhận đơn hàng
+                      </Button>)
+                }
+                {
+                    (type === "store_accepted" && <>
+                    <Button type="primary" onClick={() => {
+                      showModal("Thông báo","Bạn có thực sự muốn chuyển các đơn hàng đã chọn sang đã giao hàng. ", 2)
+                    }}>
+                      giao hàng thành công
+                    </Button>
+                    <Button type="primary" danger onClick={() => {
+                      showModal("Thông báo","Bạn có thực sự muốn hủy các đơn hàng đã chọn. ",3)
+                    }} style={{marginLeft: "20px"}}>
+                      hủy đơn hàng
+                    </Button>
+                    </>)
                 }
             </div>
+            <Modal title={dataModal.title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+              <p>{dataModal.content}</p>
+              
+            </Modal>
         </>
     )
 

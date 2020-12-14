@@ -1,5 +1,5 @@
 
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -26,6 +26,8 @@ const LoginPage = () => {
       }
     }).then((response) => {
       window.localStorage.setItem("token", response.data.token);
+      window.localStorage.setItem("auth", true);
+      window.localStorage.setItem("user", response.data.name);
       setProfile(response.data);
       setAuth(true);
       history.push("/home")

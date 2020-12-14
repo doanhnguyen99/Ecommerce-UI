@@ -13,11 +13,7 @@ import axios from 'axios';
 
 
 const ListProduct = ({products, title}) => {
-    useEffect(() => {
-        
-    },[]);
- 
-    console.log(products)
+    
     return (<>
        <Row style={{marginTop: "30px"}}>
             <Col offset={2} span={20}>

@@ -101,9 +101,7 @@ const columns = [
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) =>{
-        
-        return (
+      render: (text, record) =>(
           <Space size="middle">
             <Tag color={"#1890ff"} onClick={
               () => {
@@ -116,8 +114,7 @@ const columns = [
               setIdDelete(record.id);
               }}>Delete</Tag>
           </Space>
-        )
-      },
+      )
     },
   ];
   
@@ -136,6 +133,7 @@ const columns = [
           visible={isModalAddVisible}
           onOk={hideModalAdd}
           onCancel={hideModalAdd}
+          footer={[]}
           width={1000}
         >
           <FormEdit categorys={categorys} close={hideModalAdd} onLoad={onLoad} add={true}/>
@@ -144,6 +142,7 @@ const columns = [
           title="Chỉnh sửa sản phẩm"
           visible={isModalVisible}
           onOk={handleOk}
+          footer={[]}
           onCancel={handleCancel}
           width={1000}
         >

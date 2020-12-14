@@ -22,6 +22,8 @@ const Product = () => {
     let history = useHistory();
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
+    const [store, setStore] = useState({});
+
     const onChange = (value) => {
         setQuantity(value)
       }
@@ -33,9 +35,16 @@ const Product = () => {
         axios({
             method: "get",
             url: `http://localhost:3000/api/products/${id}`
-        }).then(data => {
-            setProduct(data.data);
-            console.log(data.data)
+        }).then(res => {
+            axios({
+                method: "get",
+                url: `http://localhost:3000/api/store/${res.data.store_id}`
+            }).then(res1 => {
+                console.log(res1.data)
+                setStore(res1.data)
+            })
+            setProduct(res.data);
+            console.log(res.data)
         })
 
       },[]);
@@ -118,7 +127,7 @@ const Product = () => {
         {/* <ListProduct products={data.products_1}/> */}
         <Row style={{marginTop: "10px"}}>
             <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
-               <StoreComponent idStore={product.store_id} />
+               <StoreComponent store={store} />
             </Col>
         </Row>
         <Row style={{marginTop: "10px"}}>
@@ -127,11 +136,7 @@ const Product = () => {
             </Col>
         </Row>
         
-        <Row style={{marginTop: "10px"}}>
-            <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
-                <CommentComponent comment={product.comments}/>
-            </Col>
-        </Row>
+        
         
         <Row style={{marginTop: "20px"}}>
             <Col offset={2} span={20}>

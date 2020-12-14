@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import axios from 'axios'; 
 
-const ModalDelete = ({isModalDeleteVisible,idDelete,onLoad, showModalDelete, hideModalDelete}) => {
+const ModalDelete = ({isModalDeleteVisible, idDelete,onLoad, showModalDelete, hideModalDelete}) => {
 
   return (
     <>
