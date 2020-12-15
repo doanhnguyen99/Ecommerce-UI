@@ -132,7 +132,7 @@ const Product = () => {
         </Row>
         <Row style={{marginTop: "10px"}}>
             <Col offset={2} span={20} style={{display:"flex", justifyContent:"space-between"}}>
-                <CommentComponent comment={product.comments}/>
+                <CommentComponent comment={product.comments? product.comments: []}/>
             </Col>
         </Row>
         

@@ -5,12 +5,12 @@ import { Comment,Row, Col,  Tooltip, Avatar, Rate, Tag } from 'antd';
 const CommentComponent = ({comment}) => {
 	console.log(comment)
 	return (
-		<div style={{margin: "0px", backgroundColor: "white", padding: "20px"}}>
+		<div style={{margin: "0px", backgroundColor: "white", padding: "20px", width: "100%"}}>
 				<h1>ĐÁNH GIÁ SẢN PHẨM</h1>
 				{
-					[comment].map(cmt => <Comment
+					comment.map(cmt => <Comment
 						// actions={actions}
-								author={<a>Han Solo</a>}
+								author={<a>{cmt.username}</a>}
 								avatar={
 										<Avatar
 										src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -19,18 +19,13 @@ const CommentComponent = ({comment}) => {
 								}
 								content={
 										<>
-												<p>
-												We supply a series of design principles, practical patterns and high quality design
-												resources (Sketch and Axure), to help people create their product prototypes beautifully
-												and efficiently.
-												</p>
-												<Rate allowHalf defaultValue={2.5} /> <span style={{marginLeft: "5px"}}>2.5</span>
-												
+												<p>{cmt.content}</p>
+												<Rate allowHalf disabled defaultValue={cmt.star} /> <span style={{marginLeft: "5px"}}>{cmt.star}</span>
 										</>
 								}
 								datetime={
 										<Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-										<span>{moment().fromNow()}</span>
+										<span>{moment(cmt.created_at).fromNow()}</span>
 										</Tooltip>
 								}
 								/>)

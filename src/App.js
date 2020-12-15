@@ -15,7 +15,8 @@ import Product from './Page/ProductPage/ProductPage';
 import Order from './components/Order/Order';
 import MyShop from './components/Shop/MyShop';
 import CategoryPage from './Page/Category/CategoryPage'
-import Profile from './Page/Profile/Profile'
+import Profile from './Page/Profile/Profile';
+import Category from './components/Category/Category';
 import { Layout  } from 'antd';
 
 const { Footer } = Layout;
@@ -65,6 +66,10 @@ function App() {
 
           <Route path="/product/:id">
             <Product/>
+          </Route>
+
+          <Route path="/category/:id">
+            <Category/>
           </Route>
 
           <PrivateRoute path="/my-order">

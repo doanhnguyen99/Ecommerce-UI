@@ -5,7 +5,7 @@ import { Table, Modal, Button } from 'antd';
 import { useHistory } from "react-router-dom";
 
 
-const WaitingAccept = ({type}) =>{
+const WaitingAccept = ({type}) => {
     let history = useHistory();
     const [listProduct, setLitProduct] = useState([]);
     const [listSelect, setListSelect ] = useState([]);
@@ -79,6 +79,7 @@ const WaitingAccept = ({type}) =>{
     }
 
     const showModal = (title, content,flag) => {
+     
       setDataModal({title, content,flag});
       setIsModalVisible(true);
     };
@@ -86,10 +87,13 @@ const WaitingAccept = ({type}) =>{
     const handleOk = () => {
       switch(dataModal.flag){
         case 1: acceptProduct();
+        reload();
         break;
         case 2: successProduct();
+        reload();
         break;
         case 3: cancelProduct();
+        reload();
         break;
       }
      
@@ -181,7 +185,6 @@ const WaitingAccept = ({type}) =>{
             </div>
             <Modal title={dataModal.title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               <p>{dataModal.content}</p>
-              
             </Modal>
         </>
     )
